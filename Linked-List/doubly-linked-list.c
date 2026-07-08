@@ -77,6 +77,54 @@ void InsertAfterData(struct node **h, int data, int positionData)
     newNode->prev = temp;
 }
 
+void DeleteByValue(struct node **h, int value)
+{
+    if (*h == NULL)
+    {
+        printf("List is Empty");
+        return;
+    }
+
+    struct node *temp;
+    temp = *h;
+    if (temp->data == value)
+    {
+        *h = temp->next;
+        if (*h)
+            (*h)->prev = NULL;
+        free(temp);
+        return;
+    }
+
+    while (temp)
+    {
+        if (temp->data == value)
+        {
+            temp->prev->next = temp->next;
+            if (temp->next)
+                temp->next->prev = temp->prev;
+            free(temp);
+            break;
+        }
+
+        temp = temp->next;
+    }
+}
+
+void FreeList(struct node **h){
+    struct node *curr, *nextNode;
+    curr = *h;
+
+    while (curr)
+    {
+        nextNode = curr->next;
+        free(curr);
+        curr = nextNode;
+    }
+    *h = NULL;
+    
+}
+
 void Display(struct node *h)
 {
     if (h == NULL)
@@ -126,7 +174,9 @@ int main()
     InsertAtEnd(&head, 40);
     InsertAtEnd(&head, 50);
     // InsertAtStart(&head, 90);
-    InsertAfterData(&head, 90, 50);
+    // InsertAfterData(&head, 90, 50);
+    // DeleteByValue(&head, 50);
+    FreeList(&head);
     Display(head);
     DisplayBackward(head);
 }
