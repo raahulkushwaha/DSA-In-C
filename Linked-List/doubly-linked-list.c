@@ -111,7 +111,8 @@ void DeleteByValue(struct node **h, int value)
     }
 }
 
-void FreeList(struct node **h){
+void FreeList(struct node **h)
+{
     struct node *curr, *nextNode;
     curr = *h;
 
@@ -122,6 +123,22 @@ void FreeList(struct node **h){
         curr = nextNode;
     }
     *h = NULL;
+}
+
+void ReverseList(struct node **h)
+{
+    struct node *curr, *temp;
+    curr = *h;
+
+    while (curr)
+    {
+        temp = curr->prev;
+        curr->prev = curr->next;
+        curr->next = temp;
+
+        curr = curr->prev;
+    }
+    *h = temp->prev;
     
 }
 
@@ -176,7 +193,9 @@ int main()
     // InsertAtStart(&head, 90);
     // InsertAfterData(&head, 90, 50);
     // DeleteByValue(&head, 50);
-    FreeList(&head);
+    // FreeList(&head);
+    Display(head);
+    ReverseList(&head);
     Display(head);
     DisplayBackward(head);
 }
