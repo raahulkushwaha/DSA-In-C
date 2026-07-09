@@ -65,7 +65,7 @@ void InsertAfterData(struct node **h, int data, int positionData)
 {
     struct node *newNode, *temp;
     temp = *h;
-    
+
     do
     {
         if (temp->data == positionData)
@@ -78,7 +78,64 @@ void InsertAfterData(struct node **h, int data, int positionData)
         temp = temp->next;
 
     } while (temp != *h);
+}
 
+void DeleteByValue(struct node **h, int value)
+{
+    struct node *curr, *prev = NULL;
+    curr = *h;
+
+    if (curr->data == value)
+    {
+        struct node *last = *h;
+        while (last->next != *h)
+        {
+            last = last->next;
+        }
+
+        *h = curr->next;
+        last->next = *h;
+        free(curr);
+        return;
+    }
+
+    prev = curr;
+    curr = curr->next;
+
+    while (curr != *h)
+    {
+        if (curr->data == value)
+        {
+            prev->next = curr->next;
+            free(curr);
+            return;
+        }
+
+        prev = curr;
+        curr = curr->next;
+    }
+}
+
+void FreeList(struct node **h)
+{
+    struct node *curr, *nextNode;
+    curr = *h;
+
+    struct node *last = *h;
+    while (last->next != *h)
+    {
+        last = last->next;
+    }
+    last->next = NULL;
+
+    while (curr)
+    {
+        nextNode = curr->next;
+        free(curr);
+        curr = nextNode;
+    }
+
+    *h = NULL;
 }
 
 void Display(struct node *h)
@@ -108,7 +165,10 @@ int main()
     InsertAtLast(&head, 20);
     InsertAtLast(&head, 30);
     InsertAtLast(&head, 40);
-    InsertAtStart(&head, 01);
-    InsertAfterData(&head, 80, 40);
+    // InsertAtStart(&head, 01);
+    // InsertAfterData(&head, 80, 40);
+    DeleteByValue(&head, 30);
+    Display(head);
+    FreeList(&head);
     Display(head);
 }
