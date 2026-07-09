@@ -38,6 +38,49 @@ void InsertAtLast(struct node **h, int data)
     temp->next = newNode;
 }
 
+void InsertAtStart(struct node **h, int data)
+{
+    struct node *newNode, *temp;
+    newNode = CreateNode(data);
+
+    if (*h == NULL)
+    {
+        newNode->next = newNode;
+        *h = newNode;
+        return;
+    }
+
+    temp = *h;
+
+    newNode->next = temp;
+    while (temp->next != *h)
+    {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    *h = newNode;
+}
+
+void InsertAfterData(struct node **h, int data, int positionData)
+{
+    struct node *newNode, *temp;
+    temp = *h;
+    
+    do
+    {
+        if (temp->data == positionData)
+        {
+            newNode = CreateNode(data);
+            newNode->next = temp->next;
+            temp->next = newNode;
+            return;
+        }
+        temp = temp->next;
+
+    } while (temp != *h);
+
+}
+
 void Display(struct node *h)
 {
     if (h == NULL)
@@ -56,7 +99,6 @@ void Display(struct node *h)
     } while (temp != h);
 
     printf("\n");
-
 }
 
 int main()
@@ -66,5 +108,7 @@ int main()
     InsertAtLast(&head, 20);
     InsertAtLast(&head, 30);
     InsertAtLast(&head, 40);
+    InsertAtStart(&head, 01);
+    InsertAfterData(&head, 80, 40);
     Display(head);
 }
