@@ -138,6 +138,33 @@ void FreeList(struct node **h)
     *h = NULL;
 }
 
+void ReverseList(struct node **h)
+{
+    if (*h == NULL)
+    {
+        return;
+    }
+
+    struct node *prev, *curr, *nextNode, *oldHead;
+    prev = NULL;
+    curr = *h;
+    nextNode = NULL;
+    oldHead = *h;
+
+    do
+    {
+        nextNode = curr->next;
+        curr->next = prev;
+
+        prev = curr;
+        curr = nextNode;
+
+    } while (curr != *h);
+    
+    *h = prev;
+    oldHead->next = *h;
+}
+
 void Display(struct node *h)
 {
     if (h == NULL)
@@ -167,7 +194,9 @@ int main()
     InsertAtLast(&head, 40);
     // InsertAtStart(&head, 01);
     // InsertAfterData(&head, 80, 40);
-    DeleteByValue(&head, 30);
+    // DeleteByValue(&head, 30);
+    Display(head);
+    ReverseList(&head);
     Display(head);
     FreeList(&head);
     Display(head);
