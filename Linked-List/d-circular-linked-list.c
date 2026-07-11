@@ -112,8 +112,26 @@ void FreeList(struct node **h)
         curr = nextNode;
 
     } while (curr != temp);
-    
+
     *h = NULL;
+}
+
+void ReverseList(struct node **h)
+{
+    struct node *curr, *temp;
+    curr = *h;
+
+    do
+    {
+        temp = curr->next;
+        curr->next = curr->prev;
+        curr->prev = temp;
+
+        curr = curr->prev;
+
+    } while (curr != *h);
+
+    *h = (*h)->next;
 }
 
 void Display(struct node *h)
@@ -167,7 +185,8 @@ int main()
     // InsertAtStart(&head, 1);
     // InsertAfterValue(&head, 60, 50);
     // DeleteByValue(&head, 10);
-    FreeList(&head);
+    // FreeList(&head);
+    ReverseList(&head);
     Display(head);
     DisplayBackward(head);
 }
