@@ -40,6 +40,34 @@ void InsertAtEnd(struct node **h, int data)
     newNode->prev->next = newNode;
 }
 
+void InsertAtStart(struct node **h, int data)
+{
+    InsertAtEnd(h, data);
+    *h = (*h)->prev;
+}
+
+void InsertAfterValue(struct node **h, int data, int positionData)
+{
+    struct node *newNode, *temp;
+    temp = *h;
+
+    do
+    {
+        if (temp->data == positionData)
+        {
+            newNode = CreateNode(data);
+            newNode->next = temp->next;
+            newNode->prev = temp;
+
+            temp->next = newNode;
+            newNode->next->prev = newNode;
+            return;
+        }
+        temp = temp->next;
+
+    } while (temp != *h);
+}
+
 void Display(struct node *h)
 {
     if (h == NULL)
@@ -68,7 +96,7 @@ void DisplayBackward(struct node *h)
     }
 
     struct node *temp = h;
-    
+
     printf("Backward: ");
     do
     {
@@ -88,6 +116,8 @@ int main()
     InsertAtEnd(&head, 30);
     InsertAtEnd(&head, 40);
     InsertAtEnd(&head, 50);
+    InsertAtStart(&head, 1);
+    InsertAfterValue(&head, 60, 50);
     Display(head);
     DisplayBackward(head);
 }
