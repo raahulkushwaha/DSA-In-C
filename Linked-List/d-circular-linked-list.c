@@ -99,6 +99,23 @@ void DeleteByValue(struct node **h, int value)
     } while (temp != *h);
 }
 
+void FreeList(struct node **h)
+{
+    struct node *temp, *curr, *nextNode;
+    curr = *h;
+    temp = *h;
+
+    do
+    {
+        nextNode = curr->next;
+        free(curr);
+        curr = nextNode;
+
+    } while (curr != temp);
+    
+    *h = NULL;
+}
+
 void Display(struct node *h)
 {
     if (h == NULL)
@@ -149,7 +166,8 @@ int main()
     InsertAtEnd(&head, 50);
     // InsertAtStart(&head, 1);
     // InsertAfterValue(&head, 60, 50);
-    DeleteByValue(&head, 10);
+    // DeleteByValue(&head, 10);
+    FreeList(&head);
     Display(head);
     DisplayBackward(head);
 }
