@@ -68,6 +68,37 @@ void InsertAfterValue(struct node **h, int data, int positionData)
     } while (temp != *h);
 }
 
+void DeleteByValue(struct node **h, int value)
+{
+    struct node *temp = *h;
+
+    do
+    {
+        if (temp->data == value)
+        {
+            // if only one node, head need to point to NULL
+            if (temp->next == temp)
+            {
+                free(temp);
+                *h = NULL;
+                return;
+            }
+
+            if (temp == *h)
+                *h = temp->next; // move ahead before deletion
+
+            temp->prev->next = temp->next;
+            temp->next->prev = temp->prev;
+
+            free(temp);
+            return;
+        }
+
+        temp = temp->next;
+
+    } while (temp != *h);
+}
+
 void Display(struct node *h)
 {
     if (h == NULL)
@@ -116,8 +147,9 @@ int main()
     InsertAtEnd(&head, 30);
     InsertAtEnd(&head, 40);
     InsertAtEnd(&head, 50);
-    InsertAtStart(&head, 1);
-    InsertAfterValue(&head, 60, 50);
+    // InsertAtStart(&head, 1);
+    // InsertAfterValue(&head, 60, 50);
+    DeleteByValue(&head, 10);
     Display(head);
     DisplayBackward(head);
 }
