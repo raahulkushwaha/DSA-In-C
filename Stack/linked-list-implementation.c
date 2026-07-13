@@ -72,6 +72,9 @@ int main()
     Push(&stackTop, 10);
     Push(&stackTop, 20);
     Push(&stackTop, 30);
+    Push(&stackTop, 10);
+    Push(&stackTop, 20);
+    Push(&stackTop, 30);
 
     DisplayStack(stackTop);
 
