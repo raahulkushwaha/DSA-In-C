@@ -58,6 +58,16 @@ int Dequeue(struct queue *q)
     return dequeuedVal;
 }
 
+int Peek(struct queue *q)
+{
+    if (IsEmpty(q))
+    {
+        printf("Queue is empty.\n");
+        return -1;
+    }
+    return q->arr[q->front];
+}
+
 int main()
 {
     struct queue myQueue;
@@ -70,8 +80,11 @@ int main()
     Enqueue(&myQueue, 50);
     Enqueue(&myQueue, 50);
 
+    printf("Peek Element: %d\n", Peek(&myQueue));
+
     printf("Dequeued value: %d\n", Dequeue(&myQueue));
     printf("Dequeued value: %d\n", Dequeue(&myQueue));
+    printf("Peek Element: %d\n", Peek(&myQueue));
     printf("Dequeued value: %d\n", Dequeue(&myQueue));
     printf("Dequeued value: %d\n", Dequeue(&myQueue));
     printf("Dequeued value: %d\n", Dequeue(&myQueue));
