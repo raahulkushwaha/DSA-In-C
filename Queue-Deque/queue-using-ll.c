@@ -83,13 +83,15 @@ void Display(struct queue *q)
     printf("\n\n");
 }
 
-int main() {
+int main()
+{
     struct queue myQueue;
     Initialize(&myQueue);
 
     int choice, value;
 
-    while (1) {
+    while (1)
+    {
         printf("\n--- Queue Operations Menu ---\n");
         printf("1. Enqueue (Insert)\n");
         printf("2. Dequeue (Delete)\n");
@@ -98,30 +100,32 @@ int main() {
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch (choice) {
-            case 1:
-                printf("Enter the integer value to enqueue: ");
-                scanf("%d", &value);
-                Enqueue(&myQueue, value);
-                break;
+        switch (choice)
+        {
+        case 1:
+            printf("Enter the integer value to enqueue: ");
+            scanf("%d", &value);
+            Enqueue(&myQueue, value);
+            break;
 
-            case 2:
-                value = Dequeue(&myQueue);
-                if (value != -1) {
-                    printf("Dequeued value: %d\n", value);
-                }
-                break;
+        case 2:
+            value = Dequeue(&myQueue);
+            if (value != -1)
+            {
+                printf("Dequeued value: %d\n", value);
+            }
+            break;
 
-            case 3:
-                Display(&myQueue);
-                break;
+        case 3:
+            Display(&myQueue);
+            break;
 
-            case 4:
-                printf("Exiting program. Goodbye!\n");
-                exit(0);
+        case 4:
+            printf("Exiting program. Goodbye!\n");
+            exit(0);
 
-            default:
-                printf("Invalid choice! Please select a valid menu option (1-4).\n");
+        default:
+            printf("Invalid choice! Please select a valid menu option (1-4).\n");
         }
     }
     return 0;
