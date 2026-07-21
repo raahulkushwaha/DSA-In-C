@@ -65,3 +65,49 @@ int DeleteFront(struct queue *q)
 
     return deletedVal;
 }
+
+void InsertFront(struct queue *q, int data)
+{
+    if (IsFull(q))
+    {
+        printf("Queue Overflow! Cannot insert front %d\n", data);
+        return;
+    }
+
+    if (q->front == -1)
+    {
+        q->front = -1;
+        q->rear = -1;
+    }
+    else
+    {
+        q->front--;
+    }
+
+    q->arr[q->front] = data;
+    printf("Inserted Front %d\n", data);
+}
+
+void DeleteRear(struct queue *q)
+{
+    if (IsEmpty(q))
+    {
+        printf("Queue Underflow! Nothing to delete\n");
+        return;
+    }
+
+    int deletedVal = q->arr[q->rear];
+
+    if (q->front == q->rear)
+    {
+        q->front = -1;
+        q->rear = -1;
+    }
+    else
+    {
+        q->rear--;
+    }
+    
+    return deletedVal;
+}
+
