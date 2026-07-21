@@ -66,3 +66,53 @@ int Dequeue(struct queue *q)
     return dequeuedVal;
 }
 
+void Display(struct queue *q)
+{
+    if (IsEmpty(q))
+    {
+        printf("Queue is Empty\n");
+        return;
+    }
+
+    printf("Queue elements: ");
+    int i = q->front;
+    while (1)
+    {
+        printf("[%d] ", q->arr[i]);
+        if (i == q->rear)
+        {
+            break;
+        }
+        i = (i + 1) % MAX;
+    }
+    printf("\n");
+}
+
+int main()
+{
+    struct queue q;
+    Initialize(&q);
+
+    // 1. Fill up the circular queue
+    Enqueue(&q, 10);
+    Enqueue(&q, 20);
+    Enqueue(&q, 30);
+    Enqueue(&q, 40);
+    Enqueue(&q, 50);
+    Display(&q);
+
+    // 2. Try to overflow
+    Enqueue(&q, 60);
+
+    // 3. Free up two slots from the front
+    printf("Dequeued: %d\n", Dequeue(&q)); // Removes 10
+    printf("Dequeued: %d\n", Dequeue(&q)); // Removes 20
+    Display(&q);
+
+    // 4. Watch it circularly wrap around to index 0 and 1!
+    Enqueue(&q, 60);
+    Enqueue(&q, 70);
+    Display(&q);
+
+    return 0;
+}
